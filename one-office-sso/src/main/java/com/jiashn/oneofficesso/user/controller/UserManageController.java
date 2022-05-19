@@ -1,7 +1,7 @@
-package com.jiashn.oneofficesso.controller;
+package com.jiashn.oneofficesso.user.controller;
 
-import com.jiashn.oneofficesso.domain.req.UserLoginReq;
-import com.jiashn.oneofficesso.service.UserManageService;
+import com.jiashn.oneofficesso.user.domain.req.UserLoginReq;
+import com.jiashn.oneofficesso.user.service.UserManageService;
 import com.jiashn.oneofficesso.utils.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +24,6 @@ public class UserManageController {
     public JsonResult<?> userLogin(@RequestBody @Valid UserLoginReq loginReq){
         return loginService.userLogin(loginReq);
     }
-
 
     /**
      * 前后端分离时，前端调用退出方法，直接删除请求头的token

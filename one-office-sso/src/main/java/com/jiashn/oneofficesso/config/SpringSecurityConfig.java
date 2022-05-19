@@ -1,10 +1,10 @@
 package com.jiashn.oneofficesso.config;
 
-import com.jiashn.oneofficesso.domain.OpuAdmin;
+import com.jiashn.oneofficesso.user.domain.OpuAdmin;
 import com.jiashn.oneofficesso.filter.JwtAuthenticationTokenFilter;
 import com.jiashn.oneofficesso.handler.SelfDefinedAccessDeniedHandler;
 import com.jiashn.oneofficesso.handler.SelfDefinedAuthenticationEntryPoint;
-import com.jiashn.oneofficesso.service.UserManageService;
+import com.jiashn.oneofficesso.user.service.OpuAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ import java.util.Objects;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserManageService userManageService;
+    private OpuAdminService opuAdminService;
     @Autowired
     private SelfDefinedAccessDeniedHandler accessDeniedHandler;
     @Autowired
@@ -50,13 +50,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService(){
         return username -> {
-            OpuAdmin userInfo = userManageService.getUserInfoByUsername(username);
+            OpuAdmin userInfo = opuAdminService.getUserInfoByUsername(username);
             return Objects.nonNull(userInfo) ? userInfo : null;
         };
     }
 
     /**
-     * 放行资源,登录接口等可以直接在此放行
+     * 不走 Spring Security 过滤器链,放行资源,登录接口等可以直接在此放行
      * @param web webSecurity
      * @throws Exception 异常
      */
@@ -89,8 +89,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //设置认证信息
         http.authorizeRequests()
-                .antMatchers("/login.do","/logOut.do")
-                .permitAll().anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
                 //关闭缓存
                 .headers().cacheControl();

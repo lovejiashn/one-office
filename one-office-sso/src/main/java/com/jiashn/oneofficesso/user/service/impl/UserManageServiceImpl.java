@@ -1,11 +1,11 @@
-package com.jiashn.oneofficesso.service.impl;
+package com.jiashn.oneofficesso.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.jiashn.oneofficesso.domain.OpuAdmin;
-import com.jiashn.oneofficesso.domain.req.UserLoginReq;
-import com.jiashn.oneofficesso.mapper.UserManageMapper;
-import com.jiashn.oneofficesso.service.UserManageService;
+import com.jiashn.oneofficesso.user.domain.OpuAdmin;
+import com.jiashn.oneofficesso.user.domain.req.UserLoginReq;
+import com.jiashn.oneofficesso.user.mapper.UserManageMapper;
+import com.jiashn.oneofficesso.user.service.UserManageService;
 import com.jiashn.oneofficesso.utils.JsonResult;
 import com.jiashn.oneofficesso.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +74,5 @@ public class UserManageServiceImpl implements UserManageService {
         OpuAdmin opuAdmin = userManageMapper.selectOne(adminWrapper);
         opuAdmin.setPassword(null);
         return JsonResult.success(opuAdmin);
-    }
-
-    @Override
-    public OpuAdmin getUserInfoByUsername(String username) {
-        Wrapper<OpuAdmin> adminWrapper = Wrappers.<OpuAdmin>lambdaQuery().eq(OpuAdmin::getName,username)
-                .eq(OpuAdmin::getEnabled,Boolean.TRUE);
-        return userManageMapper.selectOne(adminWrapper);
     }
 }

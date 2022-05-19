@@ -1,7 +1,7 @@
-package com.jiashn.oneofficesso.mapper;
+package com.jiashn.oneofficesso.user.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jiashn.oneofficesso.domain.OpuAdmin;
+import com.jiashn.oneofficesso.user.domain.OpuAdmin;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

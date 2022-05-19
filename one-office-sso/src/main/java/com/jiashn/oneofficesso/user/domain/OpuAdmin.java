@@ -1,4 +1,4 @@
-package com.jiashn.oneofficesso.domain;
+package com.jiashn.oneofficesso.user.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

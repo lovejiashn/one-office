@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022-05-17 6:37
  */
 @Configuration
-@MapperScan("com.jiashn.oneofficesso.*.mapper")
+@MapperScan("com.jiashn.oneofficesso.**.mapper")
 public class MybatisPlusConfig {
 
     @Bean

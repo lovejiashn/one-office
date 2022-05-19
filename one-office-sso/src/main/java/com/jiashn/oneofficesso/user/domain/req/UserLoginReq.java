@@ -1,10 +1,9 @@
-package com.jiashn.oneofficesso.domain.req;
+package com.jiashn.oneofficesso.user.domain.req;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author jiangjs

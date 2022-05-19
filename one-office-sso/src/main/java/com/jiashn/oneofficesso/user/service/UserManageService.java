@@ -1,7 +1,6 @@
-package com.jiashn.oneofficesso.service;
+package com.jiashn.oneofficesso.user.service;
 
-import com.jiashn.oneofficesso.domain.OpuAdmin;
-import com.jiashn.oneofficesso.domain.req.UserLoginReq;
+import com.jiashn.oneofficesso.user.domain.req.UserLoginReq;
 import com.jiashn.oneofficesso.utils.JsonResult;
 
 import java.security.Principal;
@@ -25,11 +24,6 @@ public interface UserManageService {
      */
     JsonResult<?> getUserInfo(Principal principal);
 
-    /**
-     * 根据用户名获取用户信息
-     * @param username 用户名
-     * @return 返回用户信息
-     */
-    OpuAdmin getUserInfoByUsername(String username);
+
 
 }
