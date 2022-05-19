@@ -1,0 +1,29 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.0.100:3308/one_office?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: loveQueena1991
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 20
+      auto-commit: true
+      connection-test-query: select 1
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
+jwt:
+  #jwt 存储的请求头
+  tokenHeader: Authorization
+  #jwt 加密使用的秘钥
+  secret: one-office-oss
+  #jwt 超期时间：60*60*24
+  expiration: 86400
+  #jwt 负荷中拿到的开头
+  tokenHead: Bearer
+
+#设置springSecurity放行资源地址
+security:
+  release-url: /login.do,/logOut.do,/css/**,/js/**,/index.html,/favicon.ico,/doc.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**
