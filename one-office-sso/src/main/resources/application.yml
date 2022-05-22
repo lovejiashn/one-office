@@ -1,12 +1,12 @@
 server:
-  port: 8000
+  port: 8090
 #配置数据库
 spring:
   datasource:
     username: root
     password: loveQueena1991
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.0.100:3308/one_office?characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://192.168.0.110:3308/one_office?characterEncoding=utf-8&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useSSL=false
     hikari:
       minimum-idle: 10
       maximum-pool-size: 20
@@ -26,11 +26,11 @@ jwt:
 
 #设置springSecurity放行资源地址
 security:
-  release-url: /login.do,/logOut.do,/css/**,/js/**,/index.html,favicon.ico,/doc.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**
+  release-url: /user/login.do,/user/logOut.do,/css/**,/js/**,/index.html,favicon.ico,/doc.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**
 
 #配置swagger信息
 swagger:
-    base-package: com.jiashn.oneofficesso.*  #api路径
+    base-package: com.jiashn.oneofficesso.user  #api路径
     title: 一个办公-后端接口服务   #接口标题
     description: 一个办公-后端接口服务      #接口描述
     version: 1.0                #接口版本

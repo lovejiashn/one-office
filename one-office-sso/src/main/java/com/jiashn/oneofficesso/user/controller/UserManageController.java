@@ -3,6 +3,7 @@ package com.jiashn.oneofficesso.user.controller;
 import com.jiashn.oneofficesso.user.domain.req.UserLoginReq;
 import com.jiashn.oneofficesso.user.service.UserManageService;
 import com.jiashn.oneofficesso.utils.JsonResult;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +16,17 @@ import java.security.Principal;
  */
 @RestController
 @RequestMapping("/user")
+@Api(value = "用户登录管理",tags = "用户登录管理")
 public class UserManageController {
 
     @Autowired
     private UserManageService loginService;
 
     @PostMapping("/login.do")
+    @ApiOperation(value = "用户登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "loginReq", required = true, dataType = "UserLoginReq"),
+    })
     public JsonResult<?> userLogin(@RequestBody @Valid UserLoginReq loginReq){
         return loginService.userLogin(loginReq);
     }

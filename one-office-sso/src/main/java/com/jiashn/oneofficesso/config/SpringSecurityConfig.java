@@ -38,21 +38,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${security.release-url}")
     private String releaseUrl;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 
     /**
-     * 重写UserDetailService
+     * 使自定义的UserDetailsService生肖
+     * @param auth 认证管理构造器
+     * @throws Exception 异常
      */
     @Override
-    @Bean
-    public UserDetailsService userDetailsService(){
-        return username -> {
-            OpuAdmin userInfo = opuAdminService.getUserInfoByUsername(username);
-            return Objects.nonNull(userInfo) ? userInfo : null;
-        };
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     /**
@@ -66,41 +60,52 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * 使自定义的UserDetailsService生肖
-     * @param auth 认证管理构造器
-     * @throws Exception 异常
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-    }
-
-    /**
      * 配置security
      * @param http HttpSecurity
      * @throws Exception 异常
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        //使用jwt 关闭csrf和session
+
+        //使用JWT,不需要CSRF
         http.csrf().disable()
+                //基于token,不需要session
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        //设置认证信息
         http.authorizeRequests()
-                .anyRequest().authenticated()
+                //允许登录访问
+                //除了上面的,都需要认证
+                .anyRequest()
+                .authenticated()
                 .and()
-                //关闭缓存
-                .headers().cacheControl();
-
-        //设置过滤器
+                //禁用缓存
+                .headers()
+                .cacheControl();
+        //添加jwt登录授权过滤器
         http.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-        //自定义未授权和未登录结果返回
+        //添加自定义未授权和未登录返回
         http.exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)
                 .authenticationEntryPoint(authenticationEntryPoint);
+    }
 
+
+    /**
+     * 重写UserDetailService
+     */
+    @Override
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return username -> {
+            OpuAdmin userInfo = opuAdminService.getUserInfoByUsername(username);
+            return Objects.nonNull(userInfo) ? userInfo : null;
+        };
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

@@ -19,6 +19,7 @@
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
         <commons-long.version>2.6</commons-long.version>
         <swagger.version>2.9.2</swagger.version>
+        <swaggerUI.version>1.9.6</swaggerUI.version>
     </properties>
     <dependencies>
         <!--引入security-->
@@ -54,9 +55,8 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${commons-long.version}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
         <!--引入Swagger2-->
         <dependency>
@@ -65,9 +65,9 @@
             <version>${swagger.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>${swaggerUI.version}</version>
         </dependency>
 
         <dependency>

@@ -38,13 +38,14 @@ public class UserManageServiceImpl implements UserManageService {
     @Autowired
     private UserManageMapper userManageMapper;
 
-    @Value("${jwt.tokenHead")
+    @Value("${jwt.tokenHead}")
     private String tokenHead;
 
     @Override
     public JsonResult<?> userLogin(UserLoginReq loginReq) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginReq.getUsername());
-        if (Objects.isNull(userDetails) || !passwordEncoder.matches(userDetails.getPassword(),loginReq.getPassword())){
+        String encode = passwordEncoder.encode(loginReq.getPassword());
+        if (Objects.isNull(userDetails) || !passwordEncoder.matches(loginReq.getPassword(),userDetails.getPassword())){
             return JsonResult.fail(4040, "用户名或密码不正确");
         }
         if (!userDetails.isEnabled()){

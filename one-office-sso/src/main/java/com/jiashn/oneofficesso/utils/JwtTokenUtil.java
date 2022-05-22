@@ -4,7 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -139,7 +139,7 @@ public class JwtTokenUtil {
                 //设置过期时间
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 //签名方式
-                .signWith(SignatureAlgorithm.ES512, secret)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 }
