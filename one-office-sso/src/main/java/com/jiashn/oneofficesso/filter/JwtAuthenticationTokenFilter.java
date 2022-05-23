@@ -43,7 +43,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         //请求头数据不为空，且以Bearer开头
         if (StringUtils.isNotBlank(authHeader) && authHeader.startsWith(tokenHead)){
             //截取token
-            String userToken = authHeader.substring(tokenHead.length());
+            String userToken = authHeader.substring(tokenHead.length()+1);
             //通过token获取用户信息
             String username = jwtTokenUtil.getUserNameByToken(userToken);
             //token存在用户名未登录

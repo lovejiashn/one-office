@@ -25,7 +25,7 @@ public class JwtTokenUtil {
     /**
      * 负荷用户名称的key
      */
-    private static final String CLAIM_KEY_USERNAME = "one-office";
+    private static final String CLAIM_KEY_USERNAME = "sub";
     /**
      * 负荷的创建者的key
      */
@@ -137,7 +137,7 @@ public class JwtTokenUtil {
                 //设置负荷
                 .setClaims(claims)
                 //设置过期时间
-                .setExpiration(new Date(System.currentTimeMillis() + expiration))
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 //签名方式
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
