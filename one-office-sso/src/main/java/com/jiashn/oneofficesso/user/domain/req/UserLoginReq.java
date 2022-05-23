@@ -17,4 +17,8 @@ public class UserLoginReq {
     private String username;
     @NotBlank(message = "请填写密码")
     private String password;
+    /**
+     * 验证码
+     */
+    private String captcha;
 }

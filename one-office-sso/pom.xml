@@ -20,6 +20,7 @@
         <commons-long.version>2.6</commons-long.version>
         <swagger.version>2.9.2</swagger.version>
         <swaggerUI.version>1.9.6</swaggerUI.version>
+        <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
     <dependencies>
         <!--引入security-->
@@ -68,6 +69,12 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
             <version>${swaggerUI.version}</version>
+        </dependency>
+        <!--引入谷歌kaptcha，实现验证码-->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <version>${kaptcha.version}</version>
         </dependency>
 
         <dependency>

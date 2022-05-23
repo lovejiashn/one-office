@@ -3,6 +3,7 @@ package com.jiashn.oneofficesso.user.service;
 import com.jiashn.oneofficesso.user.domain.req.UserLoginReq;
 import com.jiashn.oneofficesso.utils.JsonResult;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 /**
@@ -15,7 +16,7 @@ public interface UserManageService {
      * @param loginReq 登录提交参数
      * @return 返回数据
      */
-    JsonResult<?> userLogin(UserLoginReq loginReq);
+    JsonResult<?> userLogin(UserLoginReq loginReq, HttpSession session);
 
     /**
      * 获取当前登录用户信息

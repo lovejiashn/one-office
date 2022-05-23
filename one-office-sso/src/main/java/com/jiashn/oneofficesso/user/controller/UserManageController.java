@@ -7,6 +7,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -27,8 +28,8 @@ public class UserManageController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "loginReq", required = true, dataType = "UserLoginReq"),
     })
-    public JsonResult<?> userLogin(@RequestBody @Valid UserLoginReq loginReq){
-        return loginService.userLogin(loginReq);
+    public JsonResult<?> userLogin(@RequestBody @Valid UserLoginReq loginReq, HttpSession session){
+        return loginService.userLogin(loginReq,session);
     }
 
     /**

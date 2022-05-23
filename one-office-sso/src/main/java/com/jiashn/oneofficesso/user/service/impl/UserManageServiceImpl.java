@@ -8,6 +8,7 @@ import com.jiashn.oneofficesso.user.mapper.UserManageMapper;
 import com.jiashn.oneofficesso.user.service.UserManageService;
 import com.jiashn.oneofficesso.utils.JsonResult;
 import com.jiashn.oneofficesso.utils.JwtTokenUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -40,11 +42,20 @@ public class UserManageServiceImpl implements UserManageService {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Value("${sso.is-open-captcha}")
+    private Boolean isOpenCaptcha;
 
     @Override
-    public JsonResult<?> userLogin(UserLoginReq loginReq) {
+    public JsonResult<?> userLogin(UserLoginReq loginReq, HttpSession session) {
+        if (isOpenCaptcha){
+            if (StringUtils.isBlank(loginReq.getCaptcha())){
+                return JsonResult.fail(4040, "请输入验证码");
+            }
+            if (!loginReq.getCaptcha().equalsIgnoreCase(String.valueOf(session.getAttribute("captcha")))){
+                return JsonResult.fail(5000, "验证码输入错误");
+            }
+        }
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginReq.getUsername());
-        String encode = passwordEncoder.encode(loginReq.getPassword());
         if (Objects.isNull(userDetails) || !passwordEncoder.matches(loginReq.getPassword(),userDetails.getPassword())){
             return JsonResult.fail(4040, "用户名或密码不正确");
         }

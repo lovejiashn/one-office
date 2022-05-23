@@ -35,6 +35,10 @@ swagger:
     description: 一个办公-后端接口服务      #接口描述
     version: 1.0                #接口版本
 
+#是否开启验证码
+sso:
+  is-open-captcha: true
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/com/**/*.xml
   configuration:
